@@ -363,3 +363,12 @@ Caused by: org.eclipse.aether.transfer.ArtifactNotFoundException: org.projectlom
 
 !ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-18 13:05:47.564
 !MESSAGE Classpath changed for project: BitespeedBackendApi
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-18 13:27:59.989
+!MESSAGE Classpath changed for project: BitespeedBackendApi
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-18 13:28:12.492
+!MESSAGE Classpath changed for project: BitespeedBackendApi
+
+!ENTRY org.springframework.tooling.boot.ls 1 0 2025-05-18 13:28:13.751
+!MESSAGE Classpath changed for project: BitespeedBackendApi

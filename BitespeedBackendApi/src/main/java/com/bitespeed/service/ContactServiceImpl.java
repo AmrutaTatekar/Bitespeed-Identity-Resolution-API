@@ -53,6 +53,19 @@ public class ContactServiceImpl implements ContactService {
 			    .orElse(existingContacts.get(0)); // fallback
 
 		Integer primaryId = primaryContact.getId();
+		
+		// create secondary contact if email or phone is new
+		boolean emailExists = existingContacts.stream().anyMatch(c -> email != null && email.equals(c.getEmail()));
+		boolean phoneExists = existingContacts.stream().anyMatch(c -> phoneNumber != null && phoneNumber.equals(c.getPhoneNumber()));
+
+		if (!emailExists || !phoneExists) {
+		    Contact newSecondary = new Contact();
+		    newSecondary.setEmail(email);
+		    newSecondary.setPhoneNumber(phoneNumber);
+		    newSecondary.setLinkPrecedence(Constants.SECONDARY);
+		    newSecondary.setLinkedId(primaryId);
+		    contactRep.save(newSecondary);
+		}
 
 		return null;
 	}

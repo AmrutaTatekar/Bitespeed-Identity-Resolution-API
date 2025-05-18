@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContactResponseDto {
+public class IdentifyResponseDto {
     private ContactDto contact;
 }

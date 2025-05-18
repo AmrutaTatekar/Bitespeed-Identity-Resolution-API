@@ -1,6 +1,7 @@
 package com.bitespeed.service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,7 +13,7 @@ import com.bitespeed.dto.IdentifyRequest;
 import com.bitespeed.dto.IdentifyResponseDto;
 import com.bitespeed.entity.Contact;
 import com.bitespeed.repo.ContactRepository;
-import com.bitespeed.util.*;
+import com.bitespeed.util.Constants;
 
 @Service
 public class ContactServiceImpl implements ContactService {
@@ -44,6 +45,15 @@ public class ContactServiceImpl implements ContactService {
 			
 			return new IdentifyResponseDto(dto);
 		}
+		
+		// primary from existing contacts
+		Contact primaryContact = existingContacts.stream()
+			    .filter(c -> Constants.PRIMARY.equals(c.getLinkPrecedence()))
+			    .min(Comparator.comparing(Contact::getCreatedAt))
+			    .orElse(existingContacts.get(0)); // fallback
+
+		Integer primaryId = primaryContact.getId();
+
 		return null;
 	}
 	

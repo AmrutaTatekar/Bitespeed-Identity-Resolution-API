@@ -13,5 +13,5 @@ public class ContactDto {
     private Integer primaryContatctId;
     private List<String> emails;
     private List<String> phoneNumbers;
-    private List<Long> secondaryContactIds;
+    private List<Integer> secondaryContactIds;
 }

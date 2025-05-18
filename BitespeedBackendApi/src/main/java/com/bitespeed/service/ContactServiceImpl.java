@@ -1,8 +1,11 @@
 package com.bitespeed.service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +70,30 @@ public class ContactServiceImpl implements ContactService {
 		    contactRep.save(newSecondary);
 		}
 
-		return null;
+		// build response by fetching all linked contacts
+		List<Contact> allLinkedContacts = contactRep.findByLinkedIdOrId(primaryId, primaryId);
+
+		Set<String> emails = new LinkedHashSet<>();
+		Set<String> phones = new LinkedHashSet<>();
+		List<Integer> secondaryIds = new ArrayList<>();
+
+		for (Contact c : allLinkedContacts) {
+		    if (c.getEmail() != null) emails.add(c.getEmail());
+		    if (c.getPhoneNumber() != null) phones.add(c.getPhoneNumber());
+
+		    if (Constants.SECONDARY.equals(c.getLinkPrecedence())) {
+		        secondaryIds.add(c.getId());
+		    }
+		}
+
+		ContactDto dto = new ContactDto(
+		    primaryId,
+		    new ArrayList<>(emails),
+		    new ArrayList<>(phones),
+		    secondaryIds
+		);
+
+		return new IdentifyResponseDto(dto);
 	}
 	
 }

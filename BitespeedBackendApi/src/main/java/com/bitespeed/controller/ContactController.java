@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bitespeed.dto.IdentifyRequest;
 import com.bitespeed.dto.IdentifyResponseDto;
-import com.bitespeed.service.ContactService;
+import com.bitespeed.service.ContactServiceImpl;
 
 @RestController
 public class ContactController {
 
     @Autowired
-    private ContactService contactService;
+    private ContactServiceImpl contactService;
 
     @PostMapping("/identify")
     public ResponseEntity<IdentifyResponseDto> identify(@RequestBody IdentifyRequest request) {
